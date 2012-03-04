@@ -157,7 +157,10 @@ static SVProgressHUD *sharedView = nil;
 	
     CGFloat hudWidth = 100;
     
-	CGFloat stringWidth = [string sizeWithFont:self.stringLabel.font].width+28;
+    CGSize maxSize = CGSizeMake(3*hudWidth, 2*hudWidth);
+    CGSize labelSize = [string sizeWithFont:stringLabel.font constrainedToSize:maxSize];
+//	CGFloat stringWidth = [string sizeWithFont:self.stringLabel.font].width+28;
+	CGFloat stringWidth = labelSize.width+20;
 	
 	if(stringWidth > hudWidth)
 		hudWidth = ceil(stringWidth/2)*2;
@@ -292,6 +295,8 @@ static SVProgressHUD *sharedView = nil;
 		stringLabel.font = [UIFont boldSystemFontOfSize:16];
 		stringLabel.shadowColor = [UIColor blackColor];
 		stringLabel.shadowOffset = CGSizeMake(0, -1);
+        stringLabel.lineBreakMode = UILineBreakModeTailTruncation;
+        stringLabel.numberOfLines = 4;
 		[self addSubview:stringLabel];
 		[stringLabel release];
     }
